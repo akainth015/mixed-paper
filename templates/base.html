@@ -24,8 +24,8 @@
     href="https://unpkg.com/modern-normalize@0.6.0/modern-normalize.css"
   />
 
-  <link rel="stylesheet" href="{{ get_url(path="css/basic.css") }}">
-  <link rel="stylesheet" href="{{ get_url(path="css/main.css") }}">
+  <link rel="stylesheet" href="{{ get_url(path="basic.css") }}">
+  <link rel="stylesheet" href="{{ get_url(path="main.css") }}">
 
   {% if config.generate_feed and config.feed_filename == "rss.xml" %}
   	<link rel="alternate" type="application/rss+xml" href="{{config.base_url}}/{{config.feed_filename}}" title="{{config.title}}" />
