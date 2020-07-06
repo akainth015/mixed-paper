@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block main %}
+<section id="main">
+  <div class="container">
+    <section id="archives" class="post_list content">
+      <ul class="listing">
+		{% for page in paginator.pages %}
+        <li class="line_item item">
+          <a href="{{ page.permalink }}" title="{{ page.title }}">
+            <span>{{ page.title }}</span>
+            <span class="date">{{ page.date | date }}</span>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+{% if paginator.number_pagers > 1 %}
+<div class="pagination">
+  <ul class="pagination_container">
+        <li class="page-item to-left">
+            <a href="{{ paginator.first }}" class="page-link" aria-label="First"><span aria-hidden="true">First</span></a>
+        </li>
+        <li class="page-item{% if not paginator.previous %} disabled{% endif %} to-left">
+          <a {% if paginator.previous %}href="{{ paginator.previous }}"{% endif %} class="page-link" aria-label="Previous">
+            <span aria-hidden="true">Prev</span>
+          </a>
+        </li>
+        {% set ellipsed = false %}
+        {% set shouldEllipse = false %}
+        {% for i in range(end=paginator.number_pagers) %}
+        {% set right = paginator.number_pagers - i %}
+        {% set showNumber = i < 3 or right == 0 or i > paginator.current_index - 2 and i < paginator.current_index + 2 %}
+        {% if showNumber %}
+            {% set ellipsed = false %}
+            {% set shouldEllipse = false %}
+        {% else %}
+            {% set shouldEllipse = not ellipsed %}
+            {% set ellipsed = true %}
+        {% endif %}
+        {% if showNumber %}
+        <li class="page-item{% if i == paginator.current_index %} active{% endif %} page-number"><a class="page-link" href="{{ paginator.base_url + i }}">{{ i }}</a></li>
+        {% elif shouldEllipse %}
+        <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
+        {% endif %}
+        {% endfor %}
+        <li class="page-item to-right">
+            <a href="{{ paginator.last }}" class="page-link" aria-label="Last"><span aria-hidden="true">Last</span></a>
+        </li>
+        <li class="page-item{% if not paginator.next %} disabled{% endif %} to-right">
+          <a {% if paginator.next %}href="{{ paginator.next }}"{% endif %} class="page-link" aria-label="Next">
+            <span aria-hidden="true">Next</span>
+          </a>
+        </li>
+  </ul>
+</div>
+{% endif %}
+  </div>
+</section>
+{% endblock main %}
