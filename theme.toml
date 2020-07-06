@@ -1,12 +1,19 @@
-name = "mixedpaper"
-license = "MIT"
-licenselink = "https://github.com/wayjam/hugo-theme-mixedpaper/blob/master/LICENSE"
-description = "A simple Hugo theme for writers and bloggers."
-homepage = "https://github.com/wayjam/hugo-theme-mixedpaper"
-tags = ["blog", "minimalist", "paper", "clean", "simple", "light", "writing"]
-features = ["blog", "responsive", "social media"]
-min_version = "0.41"
+# Theme metadata
+name = "mixed-paper"
+description = "A simple theme for writers and bloggers"
+license="MIT"
+homepage = "https://github.com/akainth015/mixed-paper"
+demo = "https://mixed-paper.akainth.me"
+# The minimum version of Zola required to use the theme
+min_version = "0.7.3"
+
+[extra]
 
 [author]
-	name = "WayJam So"
-	homepage = "https://github.com/wayjam"
+name = "Aanand Kainth"
+homepage = "https://akainth.me"
+
+[original]
+author = "WayJam So"
+homepage = "https://github.com/wayjam"
+repo = "https://github.com/wayjam/hugo-theme-mixedpaper"

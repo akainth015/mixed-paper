@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="{{lang}}">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <title>{% block title %}{{config.title}}{% endblock title %}</title>
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Reset -->
+    <link rel="stylesheet" href="https://unpkg.com/modern-normalize" />
+
+    <link rel="stylesheet" href="basic.css" />
+    <link rel="stylesheet" href="main.css" />
+</head>
+
+<body>
+    <header id="header">
+        <div class="header_container">
+            <h1 class="sitetitle">
+                <a href="{{ config.base_url }}" title="{{ config.title }}">{{ config.title }}</a>
+            </h1>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="{{ config.base_url }}">Home</a></li>
+                    {% for menu in config.extra.menus.main %}
+                    <li>
+                        <a href="{{ menu.url }}">
+                            <span>{{ menu.name }}</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                    <li class="hide-sm"><a href="/rss.xml" type="application/rss+xml">RSS</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    {% block main %}{% endblock main %}
+    <a id="back_to_top" title="Go To Top" href="#">
+        <span>
+            <svg viewBox="0 0 24 24">
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"></path>
+            </svg>
+        </span>
+    </a>
+    <footer id="footer">
+        <p>
+            <span>&copy; {{ now() | date(format="%Y") }} <a
+                    href="{{ config.base_url }}" title="{{ config.title }}">{{ config.title }}</a></span>
+            <span>Built with <a rel="nofollow" target="_blank" href="https://getzola.org">Zola</a></span>
+            <span>Theme by <a rel="nofollow" target="_blank"
+                    href="https://github.com/wayjam/hugo-theme-mixedpaper">WayJam</a></span>
+        </p>
+        <script src="js/main.js"></script>
+    </footer>
+
+
+</body>
+
+</html>

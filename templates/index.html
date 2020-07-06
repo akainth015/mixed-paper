@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block main %}
+<section id="main" class="index">
+    <div class="post_list container">
+        {% for page in section.pages %}
+        <article class="post content">
+            <time datetime="{{ page.date | date(format="%+") }}"
+                class="date">{{ page.date | date(format="%a, %b %d, %Y") }}</time>
+            <h3 class="title">
+                <a href="{{ page.permalink }}" title="{{ page.title }}">{{ page.title }}</a>
+            </h3>
+            <div class="post_content summary">
+                {{ page.summary }}
+            </div>
+        </article>
+        {% endfor %}
+        {% if paginator and paginator.current_index != paginator.number_pagers%}
+        <div class="pagination">
+            <ul class="pagination_container">
+                <li class="page-item to-left">
+                    <a href="{{ paginator.first }}" class="page-link" aria-label="First"><span aria-hidden="true">First</span></a>
+                </li>
+                <li class="page-item{% if paginator.previous == null %} disabled{% endif %} to-left">
+                    <a {% if paginator.previous %}href="{{ paginator.previous }}" {% endif %} class="page-link"
+                        aria-label="Previous">
+                        <span aria-hidden="true">Prev</span>
+                    </a>
+                </li>
+                {% set ellipsed = false %}
+                {% set shouldEllipse = false %}
+                {% for i in range(end=paginator.number_pagers) %}
+                {% set right = paginator.current_index - paginator.number_pages %}
+                {% set showNumber = paginator.current_index < 3 or right == 0 %}
+                {% set showNumber = showNumber or paginator.number_pagers > paginator.current_index - 2 and paginator.number_pagers < paginator.current_index + 2  %}
+                {% if showNumber %}
+                {% set ellipsed = false %}
+                {% set shouldEllipse = false %}
+                {% else %}
+                {% set shouldEllipse = not ellipsed %}
+                {% set ellipsed = true %}
+                {% endif %}
+                {% if showNumber %}
+                <li class="page-item{% if i == paginator.current_index %} active{% endif %} page-number"><a class="page-link"
+                        href="{{ paginator.base_url + i }}">{{ i }}</a></li>
+                {% elif shouldEllipse %}
+                <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
+                {% endif %}
+                {% endfor %}
+                <li class="page-item to-right">
+                    <a href="{{ paginator.last }}" class="page-link" aria-label="Last"><span aria-hidden="true">Last</span></a>
+                </li>
+                <li class="page-item{% if not paginator.next %} disabled{% endif %} to-right">
+                    <a {% if paginator.next %}href="{{ paginator.next }}" {% endif %} class="page-link" aria-label="Next">
+                        <span aria-hidden="true">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+{% endblock main %}
